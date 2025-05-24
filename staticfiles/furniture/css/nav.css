@@ -1,0 +1,227 @@
+/* Color Variables */
+:root {
+  /* Off-white */
+  --offwhite: #F5F2EB;
+  --offwhite-light: #FAF9F5;
+  --offwhite-dark: rgb(250, 235, 215);
+
+  /* Sage Green */
+  --sage: #6B8A7A;
+  --sage-light: #8FAEA0;
+  --sage-dark: #4D6657;
+
+  /* Charcoal */
+  --charcoal: #2B2B2B;
+  --charcoal-light: #4A4A4A;
+  --charcoal-dark: #1A1A1A;
+
+  --border-radius: 1.2rem;
+  --padding: clamp(1.5rem, 3vw, 2rem);
+  --gap: clamp(1rem, 2vw, 1.5rem);
+  --focus-outline: 1px solid var(--sage-dark);
+  --shadow: 0 8px 24px rgba(77, 102, 87, 0.15);
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--charcoal);
+  background-color: var(--offwhite);
+  line-height: 1.4;
+  overflow-x: hidden;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-family: 'Comic Neue', system-ui;
+  color: var(--sage-dark);
+  text-transform: lowercase;
+  margin: 1rem 0 0.5rem;
+  letter-spacing: 0.05em;
+  font-weight: 400;
+  line-height: 1.3;
+  transition: letter-spacing 0.2s ease, color 0.2s ease; /* Dynamic letter spacing */
+}
+
+h1:hover, h2:hover, h3:hover, h4:hover {
+  color: var(--sage);
+  letter-spacing: 0.1em; /* Expands slightly on hover */
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.4rem); }
+h4 { font-size: clamp(1rem, 2.2vw, 1.2rem); }
+
+/* Paragraphs */
+p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  color: var(--charcoal);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  transition: text-shadow 0.2s ease; /* Glow effect */
+}
+
+/* General Links */
+a {
+  font-family: 'Comic Neue', system-ui;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  color: var(--sage);
+  text-decoration: none;
+  text-transform: lowercase;
+  position: relative; /* For custom underline */
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--sage-light);
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -1px;
+  left: 0;
+  background: linear-gradient(to right, var(--sage-dark), var(--sage-light)); /* Gradient underline */
+  transition: width 0.2s ease; /* Animate underline */
+}
+
+a:hover::after {
+  width: 21%; /* Underline grows on hover */
+}
+
+/* Navigation */
+.site-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--offwhite);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1.2rem;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.site-nav.visible { opacity: 1; }
+
+.nav-logo {
+  font-family: 'Architects Daughter', cursive;
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: var(--sage-dark);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+}
+
+.nav-logo:hover { color: var(--charcoal-light); }
+
+.nav-logo .logo-full { display: inline; }
+.nav-logo .logo-short { display: none; }
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li { margin-left: 1.2rem; }
+
+.nav-links a {
+  font-size: 1rem;
+  font-family: 'Comic Neue', system-ui;
+  color: var(--sage-dark);
+  text-decoration: none;
+  text-transform: lowercase;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--sage-light); }
+
+.nav-get-started {
+  border: 1px solid var(--sage-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.nav-get-started:hover {
+  border-color: var(--offwhite);
+  transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 48rem) {
+  .site-nav { padding: 0.6rem 1rem; }
+  .nav-logo { font-size: 1.5rem; }
+  .nav-logo .logo-full { display: none; }
+  .nav-logo .logo-short { display: inline; }
+  .nav-links li { margin-left: 1rem; }
+  .nav-links a { font-size: 0.9rem; }
+  .nav-get-started { padding: 0.4rem 0.8rem; }
+  /* Adjust headings, paragraphs, and links */
+  h1 { font-size: clamp(1.5rem, 3.5vw, 2rem); }
+  h2 { font-size: clamp(1.2rem, 2.8vw, 1.6rem); }
+  h3 { font-size: clamp(1rem, 2.3vw, 1.3rem); }
+  h4 { font-size: clamp(0.8rem, 2vw, 1.1rem); }
+  p { font-size: clamp(0.75rem, 1.8vw, 0.95rem); }
+  a { font-size: clamp(0.75rem, 1.8vw, 0.95rem); }
+  h1:hover, h2:hover, h3:hover, h4:hover {
+    letter-spacing: 0.08em; /* Slightly reduced for smaller screens */
+  }
+  p:hover {
+    text-shadow: 0 0 2px var(--sage-light); /* Reduced glow */
+  }
+}
+
+@media (max-width: 30rem) {
+  .site-nav { padding: 0.5rem 0.8rem; }
+  .nav-logo { font-size: 1.2rem; }
+  .nav-links li { margin-left: 0.5rem; }
+  .nav-links a { font-size: 0.75rem; }
+  .nav-get-started {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  /* Further adjust headings, paragraphs, and links */
+  h1 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+  h2 { font-size: clamp(1.1rem, 2.5vw, 1.4rem); }
+  h3 { font-size: clamp(0.9rem, 2vw, 1.2rem); }
+  h4 { font-size: clamp(0.75rem, 1.8vw, 1rem); }
+  p { font-size: clamp(0.7rem, 1.6vw, 0.9rem); }
+  a { font-size: clamp(0.7rem, 1.6vw, 0.9rem); }
+  h1:hover, h2:hover, h3:hover, h4:hover {
+    letter-spacing: 0.06em; /* Minimal expansion for tiny screens */
+  }
+  p:hover {
+    text-shadow: none; /* Disable glow on smallest screens for performance */
+  }
+  a::after {
+    height: 1px; /* Thinner underline for small screens */
+  }
+}

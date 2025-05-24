@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{% if entry %}{{ entry.excerpt }}{% else %}Explore woodworking inspiration, tutorials, and updates from our journal{% endif %}">
+  <meta name="keywords" content="Timber Culture, woodworking journal, furniture inspiration, woodworking tutorials, Kenya woodwork">
+  <meta name="author" content="Timber Culture">
+  <meta name="robots" content="index, follow">
+  <meta name="site-name" content="Timber Culture Journal">
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="{% if entry %}{{ entry.title }}{% else %}Timber Culture Journal{% endif %}">
+  <meta property="og:description" content="{% if entry %}{{ entry.excerpt }}{% else %}Explore woodworking inspiration, tutorials, and updates from our journal{% endif %}">
+  <meta property="og:image" content="{% if entry %}{{ entry.image.url }}{% else %}{% static 'furniture/images/fallback.png' %}{% endif %}">
+  <meta property="og:image:alt" content="{% if entry %}{{ entry.title }}{% else %}Timber Culture Journal{% endif %}">
+  <meta property="og:url" content="{% if entry %}{% url 'journal_detail' entry.id entry.slug %}{% else %}{% url 'journal' %}{% endif %}">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Timber Culture Journal">
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% if entry %}{{ entry.title }}{% else %}Timber Culture Journal{% endif %}">
+  <meta name="twitter:description" content="{% if entry %}{{ entry.excerpt }}{% else %}Explore woodworking inspiration, tutorials, and updates from our journal{% endif %}">
+  <meta name="twitter:image" content="{% if entry %}{{ entry.image.url }}{% else %}{% static 'furniture/images/fallback.png' %}{% endif %}">
+  <title>{% if entry %}{{ entry.title }}{% else %}journal | timber culture{% endif %}</title>
+  <link rel="canonical" href="{% if entry %}{{ request.scheme }}://{{ request.get_host }}{% url 'journal_detail' entry.id entry.slug %}{% else %}{{ request.scheme }}://{{ request.get_host }}{% url 'journal' %}{% endif %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Comic+Neue:wght@400&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static 'furniture/css/nav.css' %}" fetchpriority="high">
+  <link rel="stylesheet" href="{% static 'furniture/css/journal.css' %}" fetchpriority="high">
+  <link rel="icon" href="{% static 'furniture/images/favicon.png' %}" type="image/png">
+  <link rel="preload" href="{% static 'furniture/images/fallback.png' %}" as="image">
+  <script src="{% static 'furniture/js/polyfill.min.js' %}" defer></script>
+</head>
+  <body>
+    <nav class="site-nav">
+      <a href="{% url 'landing' %}" class="nav-logo">
+        <span class="logo-full">Timber Culture</span>
+        <span class="logo-short">T C</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+        <li><a href="{% url 'journal' %}">Journal</a></li>
+        <li><a href="{% url 'contact' %}" class="nav-get-started">Get Started</a></li>
+      </ul>
+    </nav>
+<section id="journal-hero" class="journal-hero" data-parallax="true">
+    <div class="hero-overlay">
+      <h1 class="hero-text">Timber Culture Journal</h1>
+      <blockquote class="journal-quote" aria-label="Featured journal quote"><h5></h5></blockquote>
+      <a href="#journal" class="hero-cta smooth-scroll">Explore Entries</a>
+    </div>
+  </section>
+    <section id="journal" class="journal-section">
+      <div class="journal-container">
+        <div class="search-filter" id="search-filter">
+          <div class="search-filter-container">
+            <div class="filter-column">
+              <div class="filter-options">
+                <div class="filter-group">
+                  <select id="category-filter" aria-label="Filter by category">
+                    <option value="all" {% if category == 'all' %}selected{% endif %}>all</option>
+                    <option value="inspiration" {% if category == 'inspiration' %}selected{% endif %}>inspiration</option>
+                    <option value="tutorials" {% if category == 'tutorials' %}selected{% endif %}>tutorials</option>
+                    <option value="updates" {% if category == 'updates' %}selected{% endif %}>updates</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="search-column">
+              <div class="search-bar">
+                <label for="search-input" class="sr-only">Search journal</label>
+                <input type="text" id="search-input" placeholder="what are you looking for?" value="{{ search_query|default:'' }}" aria-label="Search journal entries">
+                <button class="search-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h2 class="journal-title">Our Journey</h2>
+        <div class="journal-timeline" data-page="1" data-has-more="{% if journal_entries.has_next %}true{% else %}false{% endif %}">
+          {% for entry in journal_entries %}
+            <article class="journal-item fade-in" data-category="{{ entry.category }}" data-id="{{ entry.id }}" data-slug="{{ entry.slug }}">
+              <div class="journal-marker"></div>
+              <div class="journal-content {% cycle 'left' 'right' %}">
+                <div class="journal-thumbnail">
+                  <img src="{{ entry.image.url|default:'/static/furniture/images/fallback.png' }}"
+                       alt="{{ entry.title }}"
+                       data-src="{{ entry.image.url|default:'/static/furniture/images/fallback.png' }}"
+                       loading="lazy">
+                </div>
+                <h3 class="journal-item-title">{{ entry.title }}</h3>
+                <p class="journal-excerpt" data-original-text="{{ entry.excerpt }}">{{ entry.excerpt }}</p>
+                <a href="{% url 'journal_detail' entry.id entry.slug %}" class="read-more" data-id="{{ entry.id }}" data-slug="{{ entry.slug }}">Read More</a>
+              </div>
+            </article>
+          {% empty %}
+            <p class="no-entries">No journal entries found.</p>
+          {% endfor %}
+          <div class="infinite-loading" aria-live="polite">
+            <span class="spinner"></span>
+            <span class="sr-only">Loading more journal entries...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="reading-modal" class="reading-modal">
+      <div class="modal-content">
+        <header class="modal-header">
+          <button class="back-btn" aria-label="Back to journal"><i class="fas fa-arrow-left"></i></button>
+          <a href="{% url 'landing' %}" class="modal-logo">
+            <span class="logo-full">Timber Culture</span>
+          </a>
+          <div class="share-container">
+            <button class="share-btn" aria-label="Share this journal entry" title="Share this journal entry">
+              <i class="fas fa-share-alt"></i>
+            </button>
+          </div>
+        </header>
+        <div class="modal-body">
+          <div class="title-container">
+            <h2 id="modal-title" class="journal-item-title"></h2>
+          </div>
+          <p id="modal-date" class="journal-date"></p>
+          <img id="modal-image" src="" alt="Journal entry image" class="journal-thumbnail">
+          <div id="modal-toc" class="table-of-contents">
+            <h3>Table of Contents</h3>
+            <ul></ul>
+          </div>
+          <div id="modal-content" class="modal-journal-content"></div>
+        </div>
+      </div>
+    </div>
+    
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+  <script src="{% static 'furniture/js/scripts.js' %}?v=4"></script>
+  <script>
+    {% if entry %}
+      window.journalEntry = {
+        id: {{ entry.id }},
+        slug: "{{ entry.slug }}"
+      };
+    {% endif %}
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        initJournalPage();
+      } catch (error) {
+      }
+    });
+  </script>
+</body>
+</html>

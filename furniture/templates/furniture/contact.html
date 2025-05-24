@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Timber Culture - Custom woodwork, durable furniture, handmade designs, and mobile installation in Nairobi, Kenya. Start your project today!">
+  <meta name="keywords" content="Timber Culture, custom woodwork, durable furniture, handmade furniture, mobile installation, Nairobi woodwork, Kenya furniture">
+  <meta name="author" content="Timber Culture">
+  <meta property="og:title" content="Get Started | Timber Culture">
+  <meta property="og:description" content="Contact Timber Culture for custom woodwork and durable furniture in Nairobi, Kenya. Submit your project inquiry today!">
+  <meta property="og:image" content="{% static 'furniture/images/fallback.png' %}">
+  <meta property="og:image:alt" content="Timber Culture">
+  <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{% url 'contact' %}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="get started | timber culture">
+  <meta name="twitter:description" content="Contact Timber Culture for custom woodwork and durable furniture in Nairobi, Kenya.">
+  <meta name="twitter:image" content="{% static 'furniture/images/fallback.png' %}">
+  <meta name="robots" content="index, follow">
+  <title>get started | timber culture</title>
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% url 'contact' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Comic+Neue:wght@400&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static 'furniture/css/nav.css' %}" fetchpriority="high">
+  <link rel="stylesheet" href="{% static 'furniture/css/contact.css' %}" fetchpriority="high">
+  <link rel="icon" href="{% static 'furniture/images/favicon.png' %}" type="image/png">
+  <link rel="preload" href="{% static 'furniture/images/fallback.png' %}" as="image">
+  <script src="{% static 'furniture/js/polyfill.min.js' %}" defer></script>
+</head>
+<body>
+  <nav class="site-nav sticky" role="navigation">
+    <a href="{% url 'landing' %}" class="nav-logo" aria-label="Timber Culture Home">
+      <span class="logo-full">Timber Culture</span>
+      <span class="logo-short">T C</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+      <li><a href="{% url 'journal' %}">Journal</a></li>
+      <li><a href="{% url 'contact' %}" class="nav-get-started">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <section id="get-started-hero" class="get-started-hero" data-parallax="true">
+    <div class="hero-overlay">
+      <h1 class="hero-text">Let’s Shape Your Vision</h1>
+      <a href="#inquiry" class="hero-cta smooth-scroll" aria-label="Scroll to project inquiry form">Start Your Project</a>
+    </div>
+  </section>
+
+  <section id="contact-info" class="contact-info">
+    <div class="contact-container">
+      <h2 class="contact-title">Get in Touch</h2>
+      <hr class="section-divider">
+      <div class="contact-content">
+        <div class="contact-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6515.601209387902!2d37.46569347850972!3d-0.538150433792194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x18262de0b161c82f%3A0x86c79bba0e2b8896!2sEmbu!5e0!3m2!1sen!2ske!4v1747471654759!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Timber Culture Location in Embu, Kenya"></iframe>
+        </div>
+        <div class="contact-details">
+          <h3>Contact Details</h3>
+          <p><strong>Address:</strong> Embu, Kenya</p>
+          <p><strong>Email:</strong> <a href="mailto:info@timberculture.co.ke">info@timberculture.co.ke</a></p>
+          <p><strong>Phone:</strong> <a href="tel:+254727699787">+254 727 699 787</a></p>
+          <div class="social-links">
+            <a href="https://facebook.com/profile.php?id=61558341101375" target="_blank" rel="noopener noreferrer" aria-label="Timber Culture on Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="https://wa.me/254727699787" target="_blank" rel="noopener noreferrer" aria-label="Contact Timber Culture via WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://x.com/timber_culture" target="_blank" rel="noopener noreferrer" aria-label="Timber Culture on X"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="inquiry" class="inquiry">
+    <div class="inquiry-container">
+      <h2 class="inquiry-title">Start Your Project</h2>
+      <hr class="section-divider">
+      <div class="inquiry-content">
+        <div class="inquiry-benefits">
+          <h3>What We Can Do for You</h3>
+          <div class="benefits-grid">
+            <div class="benefit-card">
+              <i class="fas fa-ruler-combined" aria-label="Custom icon"></i>
+              <h4>Custom</h4>
+              <p>Woodwork tailored to your vision.</p>
+            </div>
+            <div class="benefit-card">
+              <i class="fas fa-shield" aria-label="Durable icon"></i>
+              <h4>Durable</h4>
+              <p>High-quality materials for lasting furniture.</p>
+            </div>
+            <div class="benefit-card">
+              <i class="fas fa-truck" aria-label="Mobile icon"></i>
+              <h4>Mobile</h4>
+              <p>Timely installation at your location.</p>
+            </div>
+            <div class="benefit-card">
+              <i class="fas fa-tools" aria-label="Handmade icon"></i>
+              <h4>Handmade</h4>
+              <p>Crafted with skill and precision.</p>
+            </div>
+          </div>
+        </div>
+        <div class="inquiry-form">
+          <h3>Project Inquiry Form</h3>
+          <form id="project-form" action="{% url 'submit_inquiry' %}" method="post" enctype="multipart/form-data" aria-describedby="form-status">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="full-name">Full Name</label>
+              <input type="text" id="full-name" name="full_name" required aria-describedby="full-name-error">
+              <span class="validation-icon" aria-hidden="true"></span>
+              <span id="full-name-error" class="error-message hidden" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" required pattern="\+?[0-9]{10,15}" aria-describedby="phone-error">
+              <span class="validation-icon" aria-hidden="true"></span>
+              <span id="phone-error" class="error-message hidden" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required aria-describedby="email-error">
+              <span class="validation-icon" aria-hidden="true"></span>
+              <span id="email-error" class="error-message hidden" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="project-type">Project Type</label>
+              <select id="project-type" name="project_type" required aria-describedby="project-type-error">
+                <option value="">Select a project type</option>
+                <option value="wood-structure">Wood Structure</option>
+                <option value="custom-furniture">Custom Furniture</option>
+                <option value="other">Other</option>
+              </select>
+              <span class="validation-icon" aria-hidden="true"></span>
+              <span id="project-type-error" class="error-message hidden" role="alert"></span>
+            </div>
+            <div class="form-group hidden" id="other-project-group">
+              <label for="other-project">Other Project Type</label>
+              <input type="text" id="other-project" name="other_project" aria-describedby="other-project-error">
+              <span class="validation-icon" aria-hidden="true"></span>
+              <span id="other-project-error" class="error-message hidden" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="project-description">Project Description</label>
+              <textarea id="project-description" name="project_description" required aria-describedby="project-description-error"></textarea>
+              <span class="validation-icon" aria-hidden="true"></span>
+              <span id="project-description-error" class="error-message hidden" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label for="project-image">Project Image (Optional)</label>
+              <input type="file" id="project-image" name="image" accept="image/jpeg,image/png,image/gif,image/webp">
+              <span class="validation-icon" aria-hidden="true"></span>
+            </div>
+            <button type="submit" class="submit-button" aria-label="Submit project inquiry">Submit</button>
+            <div id="form-status" class="form-success hidden" role="alert">Inquiry submitted.</div>
+            <div id="form-error" class="form-error hidden" role="alert"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" defer></script>
+  <script src="{% static 'furniture/js/scripts.js' %}" defer></script>
+</body>
+</html>

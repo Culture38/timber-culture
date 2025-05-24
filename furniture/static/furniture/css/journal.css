@@ -1,0 +1,573 @@
+/* Journal Hero */
+.journal-hero {
+  background: url('../images/seat.webp') center/cover fixed;
+  height: 50vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+  will-change: opacity;
+}
+
+@supports not (background-image: url('../images/seat.webp')) {
+  .journal-hero { background-image: url('../images/seat.jpg'); }
+}
+
+@media (max-width: 768px) {
+  .journal-hero { background-attachment: scroll; height: 40vh; }
+}
+
+.journal-hero.loaded { opacity: 1; }
+
+.hero-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1.2rem;
+  text-align: center;
+  background: rgba(77, 102, 87, 0.6); /* --sage-dark with opacity */
+  color: var(--offwhite);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 8px rgba(200, 200, 255, 0.3);
+  margin-bottom: 0.8rem;
+  opacity: 0;
+  color: var(--offwhite-dark);
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out, text-shadow 0.3s ease;
+  will-change: opacity, transform;
+}
+
+.hero-text.loaded { opacity: 1; transform: translateY(0); }
+
+.hero-text:hover {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 12px rgba(200, 200, 255, 0.5);
+}
+
+.journal-quote {
+  font-family: 'Architects Daughter', cursive;
+  font-size: clamp(0.85rem, 2.3vw, 1.1rem);
+  color: var(--offwhite-dark) !important;
+  max-width: 77vw;
+  line-height: 1.5;
+  margin: 0.8rem auto;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+  min-height: 1.5em;
+  z-index: 2;
+}
+
+.journal-quote.loaded { opacity: 1; transform: translateY(0); }
+
+.hero-cta {
+  display: inline-block;
+  padding: clamp(0.5rem, 1.8vw, 0.7rem) clamp(1rem, 2.8vw, 1.3rem);
+  color: var(--offwhite);
+  border: 1px solid var(--offwhite);
+  border-radius: 0.5rem;
+  background: transparent;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s, background 0.3s ease, border 0.3s ease, transform 0.3s ease;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.hero-cta.loaded { opacity: 1; transform: translateY(0); }
+
+.hero-cta:hover {
+  background: var(--sage-dark);
+  transform: scale(1.05);
+  border: none;
+  box-shadow: 0 0 8px rgba(200, 200, 255, 0.4);
+}
+
+.hero-cta:focus {
+  outline: 2px solid var(--sage-dark);
+  outline-offset: 2px;
+}
+
+/* Journal Section */
+.journal-section {
+  padding: 1rem 2rem;
+  background: var(--offwhite);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.journal-section.visible { opacity: 1; transform: translateY(0); }
+
+.journal-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.journal-title {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Search and Filter */
+.search-filter {
+  padding: 0.5rem 1rem;
+  margin: 1rem auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+  min-height: 60px;
+  z-index: 10;
+}
+
+.search-filter.visible { opacity: 1; transform: translateY(0); }
+
+.search-filter-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.search-column,
+.filter-column {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-bar input {
+  padding: clamp(0.5rem, 1.5vw, 0.8rem);
+  border: 1px solid var(--offwhite-dark);
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.search-bar input:invalid {
+  border-color: var(--sage-light);
+  box-shadow: 0 0 5px rgba(221, 68, 51, 0.5);
+}
+
+.search-btn {
+  padding: clamp(0.5rem, 1.5vw, 0.8rem) clamp(0.6rem, 1.8vw, 1rem);
+  background: var(--sage-dark);
+  color: var(--offwhite);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.search-btn:hover { background: var(--charcoal-light); }
+
+.search-btn:focus {
+  outline: 2px solid var(--sage-dark);
+  outline-offset: 2px;
+}
+
+.search-btn.loading {
+  background: var(--charcoal-light);
+  cursor: not-allowed;
+}
+
+.search-btn.loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--offwhite);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  margin-left: 8px;
+}
+
+.filter-options {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.filter-group label {
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  color: var(--sage-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.filter-group label i {
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  color: var(--sage-dark);
+}
+
+.filter-group select {
+  padding: clamp(0.3rem, 1.2vw, 0.5rem);
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  border: 1px solid var(--offwhite-dark);
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.filter-group select:focus {
+  outline: 2px solid var(--sage-dark);
+  border-color: var(--sage-dark);
+}
+
+/* Journal Timeline */
+.journal-timeline {
+  position: relative;
+  padding: 0.5rem 0;
+  min-height: 100px;
+}
+
+.journal-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: var(--offwhite-dark);
+  border-radius: 2px;
+  z-index: 0;
+}
+
+.journal-item {
+  position: relative;
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.journal-item.fade-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.journal-item.left { transform: translateX(-50px); }
+.journal-item.right { transform: translateX(50px); }
+
+.journal-item:nth-child(1) { transition-delay: 0.1s; }
+.journal-item:nth-child(2) { transition-delay: 0.2s; }
+.journal-item:nth-child(3) { transition-delay: 0.3s; }
+.journal-item:nth-child(4) { transition-delay: 0.4s; }
+
+.journal-marker {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  background: var(--sage-dark);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.journal-content {
+  width: 45%;
+  background: var(--offwhite-light);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: clamp(0.8rem, 1.5vw, 1rem);
+  line-height: 1.5;
+}
+
+.journal-content.left { margin-right: 55%; }
+.journal-content.right { margin-left: 55%; }
+
+.journal-thumbnail img {
+  width: 100%;
+  height: clamp(100px, 30vw, 150px);
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.journal-item-title { margin-bottom: 0.5rem; }
+
+.journal-excerpt { margin-bottom: 1rem; }
+
+.read-more {
+  display: inline-block;
+  padding: clamp(0.3rem, 1.2vw, 0.4rem) clamp(0.6rem, 1.8vw, 0.8rem);
+  background: var(--sage-dark);
+  color: var(--offwhite);
+  text-decoration: none;
+  text-transform: lowercase;
+  border-radius: 0.5rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.read-more:hover {
+  background: var(--charcoal-light);
+  transform: scale(1.05);
+}
+
+.read-more:focus {
+  outline: 2px solid var(--sage-dark);
+  outline-offset: 2px;
+}
+
+/* Infinite Loading Spinner */
+.infinite-loading {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.infinite-loading.active {
+  display: block;
+  opacity: 1;
+}
+
+.infinite-loading .spinner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--offwhite);
+  border-radius: 50%;
+  border-top-color: var(--sage-dark);
+  animation: spin 1s linear infinite;
+}
+
+/* Reading Modal */
+.reading-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--offwhite);
+  display: none;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+  will-change: opacity;
+}
+
+.reading-modal.active {
+  display: block;
+  opacity: 1;
+}
+
+.modal-content {
+  max-width: 900px;
+  margin: 0 auto;
+  height: 100%;
+  overflow-y: auto;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  -ms-overflow-style: none;
+  padding-top: 0;
+}
+
+.modal-content::-webkit-scrollbar { display: none; }
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(0.6rem, 1.2vw, 0.8rem) clamp(0.8rem, 1.8vw, 1rem);
+  position: sticky;
+  top: 0;
+  background: var(--offwhite);
+  z-index: 10;
+}
+
+.modal-logo {
+  font-family: 'Architects Daughter', cursive;
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 400;
+  color: var(--sage-dark);
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+}
+
+.modal-logo.hidden {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
+.modal-logo:hover { color: var(--charcoal-light); }
+
+.back-btn,
+.share-btn {
+  background: none;
+  border: none;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--sage-dark);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.back-btn:hover,
+.share-btn:hover {
+  color: var(--charcoal-light);
+  transform: scale(1.1);
+}
+
+.back-btn:focus,
+.share-btn:focus {
+  outline: 2px solid var(--sage-dark);
+  outline-offset: 2px;
+}
+
+.modal-body {
+  padding: clamp(1rem, 2vw, 1.5rem) 0;
+}
+
+.modal-body .journal-item-title { color: var(--sage-dark); }
+
+.journal-date {
+  margin: 0.5rem 0 1rem;
+}
+
+.modal-body .journal-thumbnail {
+  width: 100%;
+  height: clamp(200px, 50vw, 300px);
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.table-of-contents {
+  background: var(--offwhite-light);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: clamp(1rem, 1.8vw, 1.2rem);
+  margin-bottom: 1.5rem;
+}
+
+.table-of-contents h3 { margin-bottom: 0.5rem; }
+
+.table-of-contents ul { list-style: none; padding: 0; }
+
+.table-of-contents li { margin: 0.5rem 0; }
+
+.table-of-contents a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.table-of-contents a:hover { color: var(--charcoal-light); }
+
+#modal-content {
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  color: var(--charcoal-light);
+  line-height: 1.6;
+  padding: 1rem 0;
+}
+
+#modal-content p { margin: 0.5rem 0; }
+
+#modal-content figure.table { margin: 1rem 0; }
+
+#modal-content figure.table > table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#modal-content td {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+#modal-content figure.image { margin: 1rem 0; display: table; }
+
+#modal-content figure.image.image-style-align-left {
+  float: left;
+  margin-right: 1rem;
+}
+
+#modal-content figure.image.image-style-align-right {
+  float: right;
+  margin-left: 1rem;
+}
+
+#modal-content figure.image.image-style-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#modal-content figure.image img {
+  width: 80%;
+  max-width: 80%;
+  height: auto;
+  display: block;
+}
+
+#modal-content pre,
+#modal-content code {
+  background: #f8f8f8;
+  color: var(--charcoal);
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+}
+
+#modal-content pre {
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .modal-header {
+    padding: clamp(0.4rem, 0.8vw, 0.6rem) clamp(0.8rem, 1.8vw, 1rem);
+  }
+  #modal-content { padding: clamp(0.8rem, 1.8vw, 1rem) 0; }
+}
+
+@media (max-width: 480px) {
+  .modal-header {
+    padding: clamp(0.3rem, 0.6vw, 0.4rem) clamp(0.8rem, 1.8vw, 1rem);
+  }
+  #modal-content { padding: clamp(0.6rem, 1.5vw, 0.8rem) 0; }
+}

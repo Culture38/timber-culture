@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Timber Culture crafts minimalist wooden furniture in Kenya. Explore cozy lounges, pergolas, and custom woodwork in Nairobi.">
+  <meta name="keywords" content="Timber Culture, wooden furniture Kenya, minimalist furniture, custom woodwork Nairobi, pergolas Kenya">
+  <meta name="author" content="Timber Culture">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Timber Culture - Wooden Furniture in Kenya">
+  <meta property="og:description" content="Discover minimalist wooden furniture and custom woodwork by Timber Culture in Nairobi, Kenya.">
+  <meta property="og:image" content="{% static 'furniture/images/fallback.png' %}">
+  <meta property="og:image:alt" content="Timber Culture">
+  <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{% url 'landing' %}">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Timber Culture - Wooden Furniture in Kenya">
+  <meta name="twitter:description" content="Discover minimalist wooden furniture and custom woodwork by Timber Culture in Nairobi, Kenya.">
+  <meta name="twitter:image" content="{% static 'furniture/images/fallback.png' %}">
+  <title>timber culture | we are creators</title>
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{% url 'landing' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Comic+Neue:wght@400&family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static 'furniture/css/nav.css' %}" fetchpriority="high">
+  <link rel="stylesheet" href="{% static 'furniture/css/landing.css' %}" fetchpriority="high">
+  <link rel="icon" href="{% static 'furniture/images/favicon.png' %}" type="image/png">
+  <link rel="preload" href="{% static 'furniture/images/fallback.png' %}" as="image">
+  <link rel="preload" href="{% static 'furniture/images/working.jpg' %}" as="image">
+  <script src="{% static 'furniture/js/polyfill.min.js' %}" defer></script>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="{% url 'landing' %}" class="nav-logo">
+      <span class="logo-full">Timber Culture</span>
+      <span class="logo-short">T C</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+      <li><a href="{% url 'journal' %}">Journal</a></li>
+      <li><a href="{% url 'contact' %}" class="nav-get-started">Get Started</a></li>
+    </ul>
+  </nav>
+  <section id="landing" class="landing">
+    <div class="landing-overlay">
+      <h1 class="landing-text">The wood stays visible. The story stays true.</h1>
+      <a href="{% url 'contact' %}" id="get-started" class="landing-button">Get Started</a>
+    </div>
+  </section>
+  <section id="about-preview" class="about-preview">
+    <div class="about-container">
+      <h2 class="about-title">About Timber Culture</h2>
+      <hr class="section-divider">
+      <div class="about-content">
+        <div class="about-text-content">
+          <p class="about-text">
+            We’re Kenyan artisans crafting furniture and outdoor havens from fine timber. Picture sturdy tables for big meals and functional shelves with ample storage for your cherished books and décor. Every piece is solid, simple, and made for your home.
+          </p>
+          <a href="{% url 'about' %}" class="about-link">Read More</a>
+        </div>
+          <img src="{% static 'furniture/images/working.jpg' %}" alt="Timber Culture craftsman at work" class="about-image" loading="lazy">
+      </div>
+    </div>
+  </section>
+  <section id="top-collection" class="collection-container">
+  <h2 class="collection-title">Top Collection</h2>
+  <hr class="section-divider">
+  <div class="collection-grid" id="top-collection-grid">
+    <!-- JavaScript will populate this -->
+    <p class="loading-text">Loading top collection...</p>
+  </div>
+  <a href="{% url 'portfolio' %}" class="collection-link">Explore Full Portfolio</a>
+</section>
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <form id="footer-subscribe-form" class="subscribe-form" action="{% url 'subscribe' %}" method="POST">
+        {% csrf_token %}
+        <label for="subscribe-email" class="sr-only">Email address</label>
+        <input type="email" id="subscribe-email" name="email" placeholder="be the first to know" class="subscribe-input" required>
+        <button type="submit" class="subscribe-button">Subscribe</button>
+      </form>
+      <nav class="footer-social">
+        <a href="https://facebook.com/profile.php?id=61558341101375" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://wa.me/254727699787" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://x.com/timber_culture" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+      </nav>
+    </div>
+    <div class="copyright-wrapper">
+      <p class="footer-copyright">© <script>document.write(new Date().getFullYear())</script> timber culture. all rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+  <script src="{% static 'furniture/js/scripts.js' %}"></script>
+</body>
+</html>
